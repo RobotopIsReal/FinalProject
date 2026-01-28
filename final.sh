@@ -6,7 +6,7 @@ def=0
 hp=5
 critchance=8
 floor=1
-enemy=goblin
+enemies=("goblin" "skeleton")
 dungeon_begin(){
 	echo "You enter Floor $floor.
 	|| 1) Enter shop
@@ -28,24 +28,13 @@ enter_shop(){
 }
 
 fight_monster(){
-	echo "You encounter a $enemy!"
-	echo "${[$enemy][attack]}"
+	echo "You encounter a $enemies!"
+	echo "${goblin_enemy[0]}"
 }
 
-#enemy declares
-declare -A goblin=(
-	[attack]=1
-	[defense]=0
-	[health]=4
-	[loot]=5
-)
-
-declare -A skeleton=(
-	[attack]=2
-	[defense]=0
-	[health]=8
-	[loot]=7
-)
+#indexes represent in order: Attack, Defense, Health and Loot.
+goblin_enemy=(1 0 4 5)
+skeleton_enemy=(2 0 6 8)
 
 #main case
 send_to_choice(){
