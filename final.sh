@@ -5,16 +5,24 @@ dungeon_begin(){
 	|| 2) Fight $monster ($monsteratk|$monsterhp)
 	|| 3) Loot chest
 	|| 4) Check your stats"
+	read -p "Enter selection: " input
 	send_to_choice
 }
 
-
+enter_shop(){
+	echo "Welcome to the shop!
+	|| 1) Sword upgrade (+1 ATK) - 10G
+	|| 2) Armor upgrade (+1 HP) - 10G
+	|| 3) Shield upgrade (+1 DEF) - 30G
+	|| 4) Return"
+	read -p "Choose upgrade: " shop_input
+}
 
 
 send_to_choice(){
 case $input in
 1)
-	test 
+	enter_shop
 	;;
 1)
 	test2
