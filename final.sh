@@ -5,6 +5,7 @@ atk=1
 def=0
 hp=5
 critchance=8
+floor=1
 dungeon_begin(){
 	echo "You enter Floor $floor.
 	|| 1) Enter shop
@@ -25,14 +26,30 @@ enter_shop(){
 	read -p "Choose upgrade: " shop_input
 }
 
+fight_monster(){
+	echo "You encounter a $enemy"
+	echo "${goblin[attack]}"
+}
 
+#enemy declares
+declare -A goblin=(
+	[attack]=1
+	[defense]=0
+	[health]=4
+	[loot]=5
+)
+
+#main case
 send_to_choice(){
 case $input in
 1)
 	enter_shop
 	;;
-1)
-	test2
+2)
+	fight_monster
+	;;
+3)
+	loot_chest
 	;;
 *)
 	echo "Invalid input!"
