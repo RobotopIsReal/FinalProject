@@ -1,6 +1,6 @@
 #!/bin/bash
 #player stats
-gold=0
+gold=10
 atk=1
 def=0
 hp=5
@@ -28,8 +28,10 @@ enter_shop(){
 	|| 5) Return
 	|| Stats: $atk Attack | $hp Health | $def Defense | $critchance% CritChance"
 	read -p "Choose upgrade: " shop_input
+	shop_choice
 }
 
+#enemy fighting --------------------------------
 set_current_enemy(){
 	enemy=(${enemies[RANDOM%2]})
 	echo $enemy
@@ -40,6 +42,7 @@ fight_monster(){
 	echo "${goblin_enemy[0]}"
 }
 
+#chest looting -------------------------------
 loot_chest(){
 	echo "You try to open the chest.. It's trapped!"
 	equation
@@ -62,17 +65,24 @@ equation(){
 	fi
 }
 
-
 chest_explosion(){
 		echo "
 		/// The chest exploded! Game over! ///"
 		exit 1
 }
 
+#shop upgrades -------------------------------
+sword_upgrade(){
+	if (( gold >= 10 )) then
+		echo "Upgraded Attack by 1!"
+	else
+		echo "Insufficient funds!"
+	fi
+	sleep 1
+	enter_shop
+}
 
 #indexes represent in order: Attack, Defense, Health and Loot.
-enemy_stats=(0 0 0 0)
-
 goblin_enemy=(1 0 4 5)
 skeleton_enemy=(2 0 6 8)
 
@@ -81,7 +91,11 @@ skeleton_enemy=(2 0 6 8)
 shop_choice(){
 	case $shop_input in
 	1)
-		
+		sword_upgrade
+		;;
+	2)
+		armor_upgrade
+		;;
 	esac
 }
 
