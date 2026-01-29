@@ -41,28 +41,33 @@ fight_monster(){
 }
 
 loot_chest(){
-	echo "You try to open the chest.. A code is required!"
+	echo "You try to open the chest.. It's trapped!"
 	equation
 }
 
 equation(){
-	number1=$((RANDOM%100))
-	number2=$((RANDOM%100))
+	number1=$((RANDOM%10))
+	number2=$((RANDOM%10))
 	read -t 5 -p "What is $number1 - $number2? " answer
 	if [ -n "$answer" ]; then
-		echo "w"
-		if ( $answer = $number1-$number2); then
-			echo "wwww"
+		if [ $answer = $((number1 - number2)) ]; then
+			echo "You open the chest! Inside you find 15 Gold!"
+			sleep 1
+			dungeon_begin
+		else
+			chest_explosion
 		fi
 	else
-		echo "
-		/// The bomb exploded! Game over! ///"
-		exit 1
+		chest_explosion
 	fi
 }
 
 
-
+chest_explosion(){
+		echo "
+		/// The chest exploded! Game over! ///"
+		exit 1
+}
 
 
 #indexes represent in order: Attack, Defense, Health and Loot.
@@ -70,6 +75,18 @@ enemy_stats=(0 0 0 0)
 
 goblin_enemy=(1 0 4 5)
 skeleton_enemy=(2 0 6 8)
+
+
+#shop case
+shop_choice(){
+	case $shop_input in
+	1)
+		
+	esac
+}
+
+
+
 
 #main case
 send_to_choice(){
