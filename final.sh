@@ -40,6 +40,31 @@ fight_monster(){
 	echo "${goblin_enemy[0]}"
 }
 
+loot_chest(){
+	echo "You try to open the chest.. A code is required!"
+	equation
+}
+
+equation(){
+	number1=$((RANDOM%100))
+	number2=$((RANDOM%100))
+	read -t 5 -p "What is $number1 - $number2? " answer
+	if [ -n "$answer" ]; then
+		echo "w"
+		if ( $answer = $number1-$number2); then
+			echo "wwww"
+		fi
+	else
+		echo "
+		/// The bomb exploded! Game over! ///"
+		exit 1
+	fi
+}
+
+
+
+
+
 #indexes represent in order: Attack, Defense, Health and Loot.
 enemy_stats=(0 0 0 0)
 
