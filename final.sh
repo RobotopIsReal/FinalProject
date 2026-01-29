@@ -26,7 +26,7 @@ enter_shop(){
 	|| 3) Skill upgrade (+2% CRIT) - 10G
 	|| 4) Shield upgrade (+1 DEF) - 30G
 	|| 5) Return
-	|| Stats: $atk Attack | $hp Health | $def Defense | $critchance% CritChance"
+	|| Stats: $atk Attack | $hp Health | $def Defense | $critchance% CritChance | $gold Gold"
 	read -p "Choose upgrade: " shop_input
 	shop_choice
 }
@@ -75,6 +75,20 @@ chest_explosion(){
 sword_upgrade(){
 	if (( gold >= 10 )) then
 		echo "Upgraded Attack by 1!"
+		atk=$((atk + 1))
+		gold=$((gold - 10))
+	else
+		echo "Insufficient funds!"
+	fi
+	sleep 1
+	enter_shop
+}
+
+armor_upgrade(){
+	if (( gold >= 10 )) then
+		echo "Upgraded Health by 1!"
+		hp=$((hp + 1))
+		gold=$((gold - 10))
 	else
 		echo "Insufficient funds!"
 	fi
