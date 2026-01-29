@@ -3,17 +3,16 @@
 gold=10
 atk=1
 def=0
-hp=5
+hp=10
 critchance=8
 floor=1
 enemies=("goblin" "skeleton")
-num_enemies=${#fruits[@]}
 
 
 dungeon_begin(){
 	echo "You enter Floor $floor.
 	|| 1) Enter shop
-	|| 2) Fight $monster ($monsteratk|$monsterhp)
+	|| 2) Fight enemy
 	|| 3) Loot chest"
 	read -p "Enter selection: " input
 	send_to_choice
@@ -33,13 +32,19 @@ enter_shop(){
 
 #enemy fighting --------------------------------
 set_current_enemy(){
-	enemy=(${enemies[RANDOM%2]})
+	enemy=(${enemies[RANDOM%1]})
 	echo $enemy
 }
 
 fight_monster(){
 	echo "You encounter a $enemy!"
-	echo "${goblin_enemy[0]}"
+	echo "Enemy stats: ${goblin_enemy[0]} ATK | ${goblin_enemy[1]} DEF | ${goblin_enemy[2]} HP"
+	while (( enemyhp >= -5 ))
+	do
+		hp=$((hp - enemyatk))
+		enemyhp=$(($enemyhp - atk))
+		echo "$hp $enemyhp"
+	done
 }
 
 #chest looting -------------------------------
@@ -55,6 +60,7 @@ equation(){
 	if [ -n "$answer" ]; then
 		if [ $answer = $((number1 - number2)) ]; then
 			echo "You open the chest! Inside you find 15 Gold!"
+			gold=$((gold + 15))
 			sleep 1
 			dungeon_begin
 		else
@@ -97,7 +103,7 @@ armor_upgrade(){
 }
 
 #indexes represent in order: Attack, Defense, Health and Loot.
-goblin_enemy=(1 0 4 5)
+goblin_enemy=(2 0 5 5)
 skeleton_enemy=(2 0 6 8)
 
 
@@ -123,6 +129,7 @@ case $input in
 	enter_shop
 	;;
 2)
+	set_current_enemy
 	fight_monster
 	;;
 3)
@@ -139,3 +146,5 @@ esac
 
 # begins the loop
 dungeon_begin
+enemyhp=${goblin_enemy[2]}
+enemyatk=${goblin_enemy[0]}
