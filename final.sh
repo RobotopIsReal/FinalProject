@@ -7,6 +7,9 @@ hp=5
 critchance=8
 floor=1
 enemies=("goblin" "skeleton")
+num_enemies=${#fruits[@]}
+
+
 dungeon_begin(){
 	echo "You enter Floor $floor.
 	|| 1) Enter shop
@@ -27,12 +30,19 @@ enter_shop(){
 	read -p "Choose upgrade: " shop_input
 }
 
+set_current_enemy(){
+	enemy=(${enemies[RANDOM%2]})
+	echo $enemy
+}
+
 fight_monster(){
-	echo "You encounter a $enemies!"
+	echo "You encounter a $enemy!"
 	echo "${goblin_enemy[0]}"
 }
 
 #indexes represent in order: Attack, Defense, Health and Loot.
+enemy_stats=(0 0 0 0)
+
 goblin_enemy=(1 0 4 5)
 skeleton_enemy=(2 0 6 8)
 
@@ -47,6 +57,9 @@ case $input in
 	;;
 3)
 	loot_chest
+	;;
+4)
+	set_current_enemy
 	;;
 *)
 	echo "Invalid input!"
