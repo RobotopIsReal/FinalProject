@@ -29,12 +29,14 @@ enter_shop(){
 	read -p "Choose upgrade: " shop_input
 	shop_choice
 }
+#crit chance was meant to be a set chance that your attacks do double damage per attack cycle. defense would make each attack do 1 less damage (for example, 3 attack would do 2 damage per attack cycle with 1 defense)
 
 #enemy fighting --------------------------------
 set_current_enemy(){
 	enemy=(${enemies[RANDOM%1]})
 	echo $enemy
 }
+#was meant to help with making fight_monster support other monster types. currently set to RANDOM%1 so it only picks goblin.
 
 fight_monster(){
 	echo "You encounter a $enemy!"
@@ -46,6 +48,9 @@ fight_monster(){
 		echo "$hp $enemyhp"
 	done
 }
+#was meant to support all enemy types. while loop was meant to print out both your and the enemy's health values for every attack (attacks subtract both hp values by the opposite attack values)
+#defense and critting is also unimplemented
+#around 20% done
 
 #chest looting -------------------------------
 loot_chest(){
@@ -70,6 +75,8 @@ equation(){
 		chest_explosion
 	fi
 }
+#prompts the user with a random question (placeholder equation was a subtraction question with 2 numbers 1-10) and checks if the number is correct
+#around 95% done, just needed to figure out what the equation shouldve been
 
 chest_explosion(){
 		echo "
@@ -101,6 +108,7 @@ armor_upgrade(){
 	sleep 1
 	enter_shop
 }
+#both this and sword upgrade simply increase your stats and subtract your gold, both are fully done
 
 #indexes represent in order: Attack, Defense, Health and Loot.
 goblin_enemy=(2 0 5 5)
@@ -143,6 +151,7 @@ case $input in
 	;;
 esac
 }
+#more planned options included file saving, file loading, potentially more ways to earn gold other than chest looting.
 
 # begins the loop
 dungeon_begin
